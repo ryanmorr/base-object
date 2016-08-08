@@ -74,7 +74,7 @@ export default class BaseObject {
             }
         }
         // Ensure `destroy` can only be called once
-        this.destroy = function destroy() {};
+        this.destroy = () => this.warn('Instance already destroyed');
         return this;
     }
 
@@ -159,14 +159,16 @@ export default class BaseObject {
     }
 
     /**
-     * Remove an instance property
+     * Remove an instance property if it exists
      *
      * @param {String} name
      * @return {BaseObject}
      * @api public
      */
     removeProperty(name) {
-        if (this.hasProperty(name)) {
+        if (!this.hasProperty(name)) {
+            this.warn(`"${name}" property does not exist`);
+        } else {
             delete this[name];
         }
         return this;

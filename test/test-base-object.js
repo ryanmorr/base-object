@@ -106,6 +106,10 @@ describe('BaseObject', () => {
         const returnValue = example.removeProperty('foo');
         expect(example.hasProperty('foo')).to.equal(false);
         expect(returnValue).to.equal(example, 'should support method chaining');
+        const spy = sinon.spy(console, 'warn');
+        example.removeProperty('foo');
+        expect(spy.calledOnce).to.equal(true, 'should not try to remove property if it does not exist');
+        spy.restore();
     });
 
     it('should support getting the name of the class as a string', () => {
@@ -124,6 +128,10 @@ describe('BaseObject', () => {
         const returnValue = example.destroy();
         expect(example).to.not.have.property('foo');
         expect(returnValue).to.equal(example, 'should support method chaining');
+        const spy = sinon.spy(console, 'warn');
+        example.destroy();
+        expect(spy.calledOnce).to.equal(true, 'should allow destroy to be called only once');
+        spy.restore();
     });
 
     it('should support logging to the console', () => {
