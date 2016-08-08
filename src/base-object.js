@@ -153,4 +153,15 @@ export default class BaseObject {
         }
         return this;
     }
+
+    /**
+     * Get the name of the class as a
+     * string
+     *
+     * @return {String}
+     * @api public
+     */
+    getClassName() {
+        return this.constructor.name;
+    }
 }

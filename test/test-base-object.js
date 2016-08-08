@@ -106,4 +106,9 @@ describe('BaseObject', () => {
         expect(example.hasProperty('foo')).to.equal(false);
         expect(returnValue).to.equal(example);
     });
+
+    it('should support getting the name of the class as a string', () => {
+        const example = new ExampleObject();
+        expect(example.getClassName()).to.equal('ExampleObject');
+    });
 });
