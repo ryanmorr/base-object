@@ -50,7 +50,15 @@ export default class BaseObject {
         if (options) {
             this.defineProperties(options);
         }
+        this.initialize();
     }
+
+    /**
+     * Initialize the instance
+     *
+     * @api public
+     */
+    initialize() {}
 
     /**
      * Return the unique identifier for

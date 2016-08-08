@@ -1,13 +1,14 @@
 /* eslint-disable max-len, no-unused-expressions */
 
 import { expect } from 'chai';
+import sinon from 'sinon';
 import BaseObject from '../src/base-object';
 
 // Decalre example class that inherits from `BaseObject`
 class ExampleObject extends BaseObject {
 
-    constructor(options) {
-        super(options);
+    initialize() {
+
     }
 }
 
@@ -27,6 +28,22 @@ describe('BaseObject', () => {
         const example = new ExampleObject({foo: 1, bar: 2});
         expect(example).to.have.ownPropertyDescriptor('foo', { enumerable: true, configurable: true, writable: true, value: 1});
         expect(example).to.have.ownPropertyDescriptor('bar', { enumerable: true, configurable: true, writable: true, value: 2});
+    });
+
+    it('should automatically invoke the initialize method on construction', () => {
+        const spy = sinon.spy(ExampleObject.prototype, 'initialize');
+        // eslint-disable-next-line no-unused-vars
+        const example = new ExampleObject();
+        expect(spy.calledOnce).to.equal(true);
+        spy.restore();
+    });
+
+    it('should generate a unique ID for every instance', () => {
+        const example = new ExampleObject();
+        const example2 = new ExampleObject();
+        expect(example.id()).to.be.ok;
+        expect(example2.id()).to.be.ok;
+        expect(example).to.not.equal(example2);
     });
 
     it('should support assigning multiple properties', () => {
@@ -83,13 +100,5 @@ describe('BaseObject', () => {
         const returnValue = example.removeProperty('foo');
         expect(example.hasProperty('foo')).to.equal(false);
         expect(returnValue).to.equal(example);
-    });
-
-    it('should generate a unique ID for every instance', () => {
-        const example = new ExampleObject();
-        const example2 = new ExampleObject();
-        expect(example.id()).to.be.ok;
-        expect(example2.id()).to.be.ok;
-        expect(example).to.not.equal(example2);
     });
 });
