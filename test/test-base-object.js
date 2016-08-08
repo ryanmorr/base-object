@@ -32,7 +32,18 @@ describe('BaseObject', () => {
         expect(example).to.have.ownPropertyDescriptor('bar', { enumerable: true, configurable: true, writable: true, value: 4});
     });
 
-    it('should support assigning properties', () => {
+    it('should support collectively assigning properties', () => {
+        const base = new BaseObject();
+        const example = new ExampleObject();
+        base.defineProperties({foo: 1, bar: 2});
+        example.defineProperties({foo: 3, bar: 4});
+        expect(base).to.have.ownPropertyDescriptor('foo', { enumerable: true, configurable: true, writable: true, value: 1});
+        expect(base).to.have.ownPropertyDescriptor('bar', { enumerable: true, configurable: true, writable: true, value: 2});
+        expect(example).to.have.ownPropertyDescriptor('foo', { enumerable: true, configurable: true, writable: true, value: 3});
+        expect(example).to.have.ownPropertyDescriptor('bar', { enumerable: true, configurable: true, writable: true, value: 4});
+    });
+
+    it('should support assigning properties individually', () => {
         const base = new BaseObject();
         const example = new ExampleObject();
         base.defineProperty('foo', 1);

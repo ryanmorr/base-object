@@ -57,10 +57,20 @@ export default class BaseObject {
      */
     constructor(options) {
         if (options) {
-            for (const name in options) {
-                if (has.call(options, name)) {
-                    this.defineProperty(name, options[name]);
-                }
+            this.defineProperties(options);
+        }
+    }
+
+    /**
+     * Define properties for the instance
+     *
+     * @param {Object} properties
+     * @api public
+     */
+    defineProperties(properties) {
+        for (const name in properties) {
+            if (has.call(properties, name)) {
+                this.defineProperty(name, properties[name]);
             }
         }
     }
