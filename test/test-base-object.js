@@ -40,10 +40,15 @@ describe('BaseObject', () => {
 
     it('should generate a unique ID for every instance', () => {
         const example = new ExampleObject();
-        const example2 = new ExampleObject();
         expect(example.id()).to.be.ok;
-        expect(example2.id()).to.be.ok;
-        expect(example).to.not.equal(example2);
+        expect(example.id()).to.be.a('string');
+        // Check uniqueness
+        const objects = [];
+        for (let i = 0; i < 1000; i++) {
+            const obj = new ExampleObject();
+            expect(objects).to.not.include(obj.id());
+            objects.push(obj.id());
+        }
     });
 
     it('should support assigning multiple properties', () => {

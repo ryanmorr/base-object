@@ -49,5 +49,5 @@ export function merge(obj, ...props) {
  * @api public
  */
 export function uid() {
-    return (Date.now().toString(36) + (counter++).toString(36).substr(2, 5));
+    return (Date.now().toString(36) + (counter++).toString(36));
 }
