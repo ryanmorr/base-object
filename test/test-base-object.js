@@ -53,4 +53,31 @@ describe('BaseObject', () => {
         expect(example).to.have.ownPropertyDescriptor('foo2', { enumerable: true, configurable: false, writable: true, value: 1});
         expect(example).to.have.ownPropertyDescriptor('foo3', { enumerable: true, configurable: true, writable: false, value: 1});
     });
+
+    it('should support checking the existance of a property', () => {
+        const example = new ExampleObject();
+        expect(example.hasProperty('foo')).to.equal(false);
+        example.defineProperty('foo', 1);
+        expect(example.hasProperty('foo')).to.equal(true);
+    });
+
+    it('should support getting the value of an instance property', () => {
+        const example = new ExampleObject();
+        example.defineProperty('foo', 1);
+        expect(example.getProperty('foo')).to.equal(1);
+    });
+
+    it('should support setting the value of an instance property', () => {
+        const example = new ExampleObject();
+        example.setProperty('foo', 1);
+        expect(example.getProperty('foo')).to.equal(1);
+    });
+
+    it('should support removing an instance property', () => {
+        const example = new ExampleObject();
+        example.defineProperty('foo', 1);
+        expect(example.hasProperty('foo')).to.equal(true);
+        example.removeProperty('foo');
+        expect(example.hasProperty('foo')).to.equal(false);
+    });
 });

@@ -77,6 +77,7 @@ export default class BaseObject {
 
     /**
      * Define a property for the instance
+     * and optionally provide a descriptor
      *
      * @param {String} name
      * @param {*} value
@@ -85,5 +86,53 @@ export default class BaseObject {
      */
     defineProperty(name, value, descriptor = {}) {
         Object.defineProperty(this, name, merge({value}, propertyDefaults, descriptor));
+    }
+
+    /**
+     * Check the existence of an instance
+     * property
+     *
+     * @param {String} name
+     * @return {Boolean}
+     * @api public
+     */
+    hasProperty(name) {
+        return has.call(this, name);
+    }
+
+    /**
+     * Get the value of an instance property
+     *
+     * @param {String} name
+     * @return {*}
+     * @api public
+     */
+    getProperty(name) {
+        return this[name];
+    }
+
+    /**
+     * Set the value of an instance property,
+     * differs from `defineProperty` by not
+     * including descriptor
+     *
+     * @param {String} name
+     * @param {*} value
+     * @api public
+     */
+    setProperty(name, value) {
+        this[name] = value;
+    }
+
+    /**
+     * Remove an instance property
+     *
+     * @param {String} name
+     * @api public
+     */
+    removeProperty(name) {
+        if (this.hasProperty(name)) {
+            delete this[name];
+        }
     }
 }
