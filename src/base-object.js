@@ -1,7 +1,7 @@
 /**
  * Import dependencies
  */
-import { hasOwnProperty, merge, uid } from './util';
+import { hasOwnProperty, merge, uid, print, formatMessage } from './util';
 
 /**
  * Define default property descriptors
@@ -169,6 +169,30 @@ export default class BaseObject {
         if (this.hasProperty(name)) {
             delete this[name];
         }
+        return this;
+    }
+
+    /**
+     * Log to the console
+     *
+     * @param {String} msg
+     * @return {BaseObject}
+     * @api public
+     */
+    log(msg) {
+        print('log', formatMessage(this, msg));
+        return this;
+    }
+
+    /**
+     * Log a warning to the console
+     *
+     * @param {String} msg
+     * @return {BaseObject}
+     * @api public
+     */
+    warn(msg) {
+        print('warn', formatMessage(this, msg));
         return this;
     }
 

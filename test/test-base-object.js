@@ -3,6 +3,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import BaseObject from '../src/base-object';
+import { formatMessage } from '../src/util';
 
 // Decalre example class that inherits from `BaseObject`
 class ExampleObject extends BaseObject {
@@ -123,5 +124,25 @@ describe('BaseObject', () => {
         const returnValue = example.destroy();
         expect(example).to.not.have.property('foo');
         expect(returnValue).to.equal(example, 'should support method chaining');
+    });
+
+    it('should support logging to the console', () => {
+        const example = new ExampleObject();
+        const spy = sinon.spy(console, 'log');
+        const returnValue = example.log('test');
+        expect(spy.calledOnce).to.equal(true);
+        expect(spy.calledWith(formatMessage(example, 'test'))).to.equal(true);
+        expect(returnValue).to.equal(example, 'should support method chaining');
+        spy.restore();
+    });
+
+    it('should support logging warnings to the console', () => {
+        const example = new ExampleObject();
+        const spy = sinon.spy(console, 'warn');
+        const returnValue = example.warn('test');
+        expect(spy.calledOnce).to.equal(true);
+        expect(spy.calledWith(formatMessage(example, 'test'))).to.equal(true);
+        expect(returnValue).to.equal(example, 'should support method chaining');
+        spy.restore();
     });
 });

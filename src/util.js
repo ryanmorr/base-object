@@ -51,3 +51,31 @@ export function merge(obj, ...props) {
 export function uid() {
     return (Date.now().toString(36) + (counter++).toString(36));
 }
+
+/**
+ * Print a message to the console
+ *
+ * @param {String} type
+ * @param {String} msg
+ * @api public
+ */
+export function print(type, msg) {
+    /* eslint-disable no-console */
+    if (console && type in console) {
+        console[type](msg);
+    }
+    /* eslint-enable no-console */
+}
+
+/**
+ * Format a message to be identifiable to
+ * the originating class and instance
+ *
+ * @param {Object} obj
+ * @param {String} msg
+ * @return {String}
+ * @api public
+ */
+export function formatMessage(obj, msg) {
+    return `${obj.getClassName()}(#${obj.id()}): ${msg}`;
+}
