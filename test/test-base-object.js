@@ -43,4 +43,14 @@ describe('BaseObject', () => {
         expect(example).to.have.ownPropertyDescriptor('foo', { enumerable: true, configurable: true, writable: true, value: 1});
         expect(example).to.have.ownPropertyDescriptor('bar', { enumerable: true, configurable: true, writable: true, value: 2});
     });
+
+    it('should support assigning property descriptors', () => {
+        const example = new ExampleObject();
+        example.defineProperty('foo1', 1, {enumerable: false});
+        example.defineProperty('foo2', 1, {configurable: false});
+        example.defineProperty('foo3', 1, {writable: false});
+        expect(example).to.have.ownPropertyDescriptor('foo1', { enumerable: false, configurable: true, writable: true, value: 1});
+        expect(example).to.have.ownPropertyDescriptor('foo2', { enumerable: true, configurable: false, writable: true, value: 1});
+        expect(example).to.have.ownPropertyDescriptor('foo3', { enumerable: true, configurable: true, writable: false, value: 1});
+    });
 });

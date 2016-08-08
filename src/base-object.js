@@ -80,9 +80,10 @@ export default class BaseObject {
      *
      * @param {String} name
      * @param {*} value
+     * @param {Object} descriptor (optional)
      * @api public
      */
-    defineProperty(name, value) {
-        Object.defineProperty(this, name, merge({value}, propertyDefaults));
+    defineProperty(name, value, descriptor = {}) {
+        Object.defineProperty(this, name, merge({value}, propertyDefaults, descriptor));
     }
 }
