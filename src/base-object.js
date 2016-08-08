@@ -40,6 +40,7 @@ export default class BaseObject {
      * Define properties for the instance
      *
      * @param {Object} properties
+     * @return {BaseObject}
      * @api public
      */
     defineProperties(properties) {
@@ -48,6 +49,7 @@ export default class BaseObject {
                 this.defineProperty(name, properties[name]);
             }
         }
+        return this;
     }
 
     /**
@@ -57,10 +59,12 @@ export default class BaseObject {
      * @param {String} name
      * @param {*} value
      * @param {Object} descriptor (optional)
+     * @return {BaseObject}
      * @api public
      */
     defineProperty(name, value, descriptor = {}) {
         Object.defineProperty(this, name, merge({value}, propertyDefaults, descriptor));
+        return this;
     }
 
     /**
@@ -93,21 +97,25 @@ export default class BaseObject {
      *
      * @param {String} name
      * @param {*} value
+     * @return {BaseObject}
      * @api public
      */
     setProperty(name, value) {
         this[name] = value;
+        return this;
     }
 
     /**
      * Remove an instance property
      *
      * @param {String} name
+     * @return {BaseObject}
      * @api public
      */
     removeProperty(name) {
         if (this.hasProperty(name)) {
             delete this[name];
         }
+        return this;
     }
 }

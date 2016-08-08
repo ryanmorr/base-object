@@ -31,17 +31,19 @@ describe('BaseObject', () => {
 
     it('should support assigning multiple properties', () => {
         const example = new ExampleObject();
-        example.defineProperties({foo: 1, bar: 2});
+        const returnValue = example.defineProperties({foo: 1, bar: 2});
         expect(example).to.have.ownPropertyDescriptor('foo', { enumerable: true, configurable: true, writable: true, value: 1});
         expect(example).to.have.ownPropertyDescriptor('bar', { enumerable: true, configurable: true, writable: true, value: 2});
+        expect(returnValue).to.equal(example);
     });
 
     it('should support assigning properties individually', () => {
         const example = new ExampleObject();
         example.defineProperty('foo', 1);
-        example.defineProperty('bar', 2);
+        const returnValue = example.defineProperty('bar', 2);
         expect(example).to.have.ownPropertyDescriptor('foo', { enumerable: true, configurable: true, writable: true, value: 1});
         expect(example).to.have.ownPropertyDescriptor('bar', { enumerable: true, configurable: true, writable: true, value: 2});
+        expect(returnValue).to.equal(example);
     });
 
     it('should support assigning property descriptors', () => {
@@ -69,15 +71,17 @@ describe('BaseObject', () => {
 
     it('should support setting the value of an instance property', () => {
         const example = new ExampleObject();
-        example.setProperty('foo', 1);
+        const returnValue = example.setProperty('foo', 1);
         expect(example.getProperty('foo')).to.equal(1);
+        expect(returnValue).to.equal(example);
     });
 
     it('should support removing an instance property', () => {
         const example = new ExampleObject();
         example.defineProperty('foo', 1);
         expect(example.hasProperty('foo')).to.equal(true);
-        example.removeProperty('foo');
+        const returnValue = example.removeProperty('foo');
         expect(example.hasProperty('foo')).to.equal(false);
+        expect(returnValue).to.equal(example);
     });
 });
