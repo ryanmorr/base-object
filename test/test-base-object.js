@@ -106,10 +106,10 @@ describe('BaseObject', () => {
         const returnValue = example.removeProperty('foo');
         expect(example.hasProperty('foo')).to.equal(false);
         expect(returnValue).to.equal(example, 'should support method chaining');
-        const spy = sinon.spy(console, 'warn');
+        const stub = sinon.stub(console, 'warn');
         example.removeProperty('foo');
-        expect(spy.calledOnce).to.equal(true, 'should not try to remove property if it does not exist');
-        spy.restore();
+        expect(stub.calledOnce).to.equal(true, 'should not try to remove property if it does not exist');
+        stub.restore();
     });
 
     it('should support getting the name of the class as a string', () => {
@@ -128,32 +128,32 @@ describe('BaseObject', () => {
         const returnValue = example.destroy();
         expect(example).to.not.have.property('foo');
         expect(returnValue).to.equal(example, 'should support method chaining');
-        const spy = sinon.spy(console, 'warn');
+        const stub = sinon.stub(console, 'warn');
         example.destroy();
-        expect(spy.calledOnce).to.equal(true, 'should allow destroy to be called only once');
-        spy.restore();
+        expect(stub.calledOnce).to.equal(true, 'should allow destroy to be called only once');
+        stub.restore();
     });
 
     it('should support logging to the console', () => {
         const msg = 'test';
         const example = new ExampleObject();
-        const spy = sinon.spy(console, 'log');
+        const stub = sinon.stub(console, 'log');
         const returnValue = example.log(msg);
-        expect(spy.calledOnce).to.equal(true);
-        expect(spy.calledWith(formatMessage(example, msg))).to.equal(true);
+        expect(stub.calledOnce).to.equal(true);
+        expect(stub.calledWith(formatMessage(example, msg))).to.equal(true);
         expect(returnValue).to.equal(example, 'should support method chaining');
-        spy.restore();
+        stub.restore();
     });
 
     it('should support logging warnings to the console', () => {
         const msg = 'test';
         const example = new ExampleObject();
-        const spy = sinon.spy(console, 'warn');
+        const stub = sinon.stub(console, 'warn');
         const returnValue = example.warn(msg);
-        expect(spy.calledOnce).to.equal(true);
-        expect(spy.calledWith(formatMessage(example, msg))).to.equal(true);
+        expect(stub.calledOnce).to.equal(true);
+        expect(stub.calledWith(formatMessage(example, msg))).to.equal(true);
         expect(returnValue).to.equal(example, 'should support method chaining');
-        spy.restore();
+        stub.restore();
     });
 
     it('should support throwing errors that are identifiable to the originating class and instance', () => {
