@@ -1,6 +1,7 @@
 /**
  * Common variables
  */
+let counter = 0;
 const has = {}.hasOwnProperty;
 
 /**
@@ -39,4 +40,14 @@ export function merge(obj, ...props) {
         }
     }
     return obj;
+}
+
+/**
+ * Generate a unique ID
+ *
+ * @return {String}
+ * @api public
+ */
+export function uid() {
+    return (Date.now().toString(36) + (counter++).toString(36).substr(2, 5));
 }

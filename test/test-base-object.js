@@ -84,4 +84,12 @@ describe('BaseObject', () => {
         expect(example.hasProperty('foo')).to.equal(false);
         expect(returnValue).to.equal(example);
     });
+
+    it('should generate a unique ID for every instance', () => {
+        const example = new ExampleObject();
+        const example2 = new ExampleObject();
+        expect(example.id()).to.be.ok;
+        expect(example2.id()).to.be.ok;
+        expect(example).to.not.equal(example2);
+    });
 });

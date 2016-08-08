@@ -1,7 +1,7 @@
 /**
  * Import dependencies
  */
-import { hasOwnProperty, merge } from './util';
+import { hasOwnProperty, merge, uid } from './util';
 
 /**
  * Define default property descriptors
@@ -11,6 +11,17 @@ const propertyDefaults = {
     configurable: true,
     writable: true
 };
+
+/**
+ * Name of the `id` property, use Symbol
+ * if supported as a means of protection
+ */
+const id = (() => {
+    if (typeof Symbol === 'function' && typeof Symbol() === 'symbol') {
+        return Symbol('id');
+    }
+    return '$id';
+})();
 
 /**
  * Abstract class to provide additional
@@ -31,9 +42,25 @@ export default class BaseObject {
      * @api public
      */
     constructor(options) {
+        this.defineProperty(id, uid(), {
+            enumerable: false,
+            configurable: false,
+            writable: false
+        });
         if (options) {
             this.defineProperties(options);
         }
+    }
+
+    /**
+     * Return the unique identifier for
+     * this instance
+     *
+     * @return {String}
+     * @api public
+     */
+    id() {
+        return this[id];
     }
 
     /**
