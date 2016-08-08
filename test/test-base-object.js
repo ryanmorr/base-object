@@ -116,4 +116,11 @@ describe('BaseObject', () => {
         const example = new ExampleObject();
         expect(example.toString()).to.equal('[object ExampleObject]');
     });
+
+    it('should support instance destruction by purging properties', () => {
+        const example = new ExampleObject({foo: 1});
+        expect(example).to.have.property('foo', 1);
+        example.destroy();
+        expect(example).to.not.have.property('foo');
+    });
 });

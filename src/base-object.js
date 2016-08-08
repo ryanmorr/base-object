@@ -62,6 +62,21 @@ export default class BaseObject {
     initialize() {}
 
     /**
+     * Class destructor to purge references
+     *
+     * @api public
+     */
+    destroy() {
+        for (const prop in this) {
+            if (hasOwnProperty(this, prop)) {
+                delete this[prop];
+            }
+        }
+        // Ensure `destroy` can only be called once
+        this.destroy = function destroy() {};
+    }
+
+    /**
      * Return the unique identifier for
      * this instance
      *
