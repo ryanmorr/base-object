@@ -165,4 +165,14 @@ export default class BaseObject {
     getClassName() {
         return this.constructor.name;
     }
+
+    /**
+     * Get the instance type
+     *
+     * @return {String}
+     * @api public
+     */
+    toString() {
+        return `[object ${this.getClassName()}]`;
+    }
 }

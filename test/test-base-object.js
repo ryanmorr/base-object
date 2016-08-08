@@ -111,4 +111,9 @@ describe('BaseObject', () => {
         const example = new ExampleObject();
         expect(example.getClassName()).to.equal('ExampleObject');
     });
+
+    it('should support getting the instance type via toString', () => {
+        const example = new ExampleObject();
+        expect(example.toString()).to.equal('[object ExampleObject]');
+    });
 });
