@@ -197,6 +197,17 @@ export default class BaseObject {
     }
 
     /**
+     * Throw an error that is identifiable to
+     * the originating class and instance
+     *
+     * @param {String} msg
+     * @api public
+     */
+    error(msg) {
+        throw new Error(formatMessage(this, msg));
+    }
+
+    /**
      * Get the name of the class as a
      * string
      *

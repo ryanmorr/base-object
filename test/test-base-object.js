@@ -127,22 +127,33 @@ describe('BaseObject', () => {
     });
 
     it('should support logging to the console', () => {
+        const msg = 'test';
         const example = new ExampleObject();
         const spy = sinon.spy(console, 'log');
-        const returnValue = example.log('test');
+        const returnValue = example.log(msg);
         expect(spy.calledOnce).to.equal(true);
-        expect(spy.calledWith(formatMessage(example, 'test'))).to.equal(true);
+        expect(spy.calledWith(formatMessage(example, msg))).to.equal(true);
         expect(returnValue).to.equal(example, 'should support method chaining');
         spy.restore();
     });
 
     it('should support logging warnings to the console', () => {
+        const msg = 'test';
         const example = new ExampleObject();
         const spy = sinon.spy(console, 'warn');
-        const returnValue = example.warn('test');
+        const returnValue = example.warn(msg);
         expect(spy.calledOnce).to.equal(true);
-        expect(spy.calledWith(formatMessage(example, 'test'))).to.equal(true);
+        expect(spy.calledWith(formatMessage(example, msg))).to.equal(true);
         expect(returnValue).to.equal(example, 'should support method chaining');
         spy.restore();
+    });
+
+    it('should support throwing errors that are identifiable to the originating class and instance', () => {
+        const msg = 'error';
+        const example = new ExampleObject();
+        const error = () => {
+            example.error(msg);
+        };
+        expect(error).to.throw(Error, formatMessage(example, msg));
     });
 });
