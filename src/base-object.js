@@ -54,7 +54,8 @@ export default class BaseObject {
     }
 
     /**
-     * Initialize the instance
+     * Initialize the instance, override this
+     * and not the constructor
      *
      * @api public
      */
