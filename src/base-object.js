@@ -26,7 +26,7 @@ const id = (() => {
 /**
  * Abstract class to provide additional
  * functionality and helper methods for
- * other classes to inerhit
+ * other classes to inherit
  *
  * @class BaseObject
  * @api public

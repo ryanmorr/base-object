@@ -79,7 +79,7 @@ describe('BaseObject', () => {
         expect(example).to.have.ownPropertyDescriptor('foo3', { enumerable: true, configurable: true, writable: false, value: 1});
     });
 
-    it('should support checking the existance of a property', () => {
+    it('should support checking the existence of a property', () => {
         const example = new ExampleObject();
         expect(example.hasProperty('foo')).to.equal(false);
         example.defineProperty('foo', 1);
