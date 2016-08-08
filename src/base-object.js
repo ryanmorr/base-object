@@ -1,7 +1,7 @@
 /**
- * Common variables
+ * Import dependencies
  */
-const has = {}.hasOwnProperty;
+import { hasOwnProperty, merge } from './util';
 
 /**
  * Define default property descriptors
@@ -11,31 +11,6 @@ const propertyDefaults = {
     configurable: true,
     writable: true
 };
-
-/**
- * Copy properties from one or more objects
- * to a target object
- *
- * @param {Object} obj
- * @param {...Object} properties
- * @return {Object}
- * @api private
- */
-function merge(obj, ...props) {
-    if ('assign' in Object) {
-        Object.assign(obj, ...props);
-        return obj;
-    }
-    for (let i = 0, len = props.length, item; i < len; i++) {
-        item = props[i];
-        for (const key in item) {
-            if (has.call(item, key)) {
-                obj[key] = item[key];
-            }
-        }
-    }
-    return obj;
-}
 
 /**
  * Abstract class to provide additional
@@ -69,7 +44,7 @@ export default class BaseObject {
      */
     defineProperties(properties) {
         for (const name in properties) {
-            if (has.call(properties, name)) {
+            if (hasOwnProperty(properties, name)) {
                 this.defineProperty(name, properties[name]);
             }
         }
@@ -97,7 +72,7 @@ export default class BaseObject {
      * @api public
      */
     hasProperty(name) {
-        return has.call(this, name);
+        return hasOwnProperty(this, name);
     }
 
     /**
