@@ -56,7 +56,7 @@ describe('BaseObject', () => {
         const returnValue = example.defineProperties({foo: 1, bar: 2});
         expect(example).to.have.ownPropertyDescriptor('foo', { enumerable: true, configurable: true, writable: true, value: 1});
         expect(example).to.have.ownPropertyDescriptor('bar', { enumerable: true, configurable: true, writable: true, value: 2});
-        expect(returnValue).to.equal(example);
+        expect(returnValue).to.equal(example, 'should support method chaining');
     });
 
     it('should support assigning properties individually', () => {
@@ -65,7 +65,7 @@ describe('BaseObject', () => {
         const returnValue = example.defineProperty('bar', 2);
         expect(example).to.have.ownPropertyDescriptor('foo', { enumerable: true, configurable: true, writable: true, value: 1});
         expect(example).to.have.ownPropertyDescriptor('bar', { enumerable: true, configurable: true, writable: true, value: 2});
-        expect(returnValue).to.equal(example);
+        expect(returnValue).to.equal(example, 'should support method chaining');
     });
 
     it('should support assigning property descriptors', () => {
@@ -95,7 +95,7 @@ describe('BaseObject', () => {
         const example = new ExampleObject();
         const returnValue = example.setProperty('foo', 1);
         expect(example.getProperty('foo')).to.equal(1);
-        expect(returnValue).to.equal(example);
+        expect(returnValue).to.equal(example, 'should support method chaining');
     });
 
     it('should support removing an instance property', () => {
@@ -104,7 +104,7 @@ describe('BaseObject', () => {
         expect(example.hasProperty('foo')).to.equal(true);
         const returnValue = example.removeProperty('foo');
         expect(example.hasProperty('foo')).to.equal(false);
-        expect(returnValue).to.equal(example);
+        expect(returnValue).to.equal(example, 'should support method chaining');
     });
 
     it('should support getting the name of the class as a string', () => {
@@ -120,7 +120,8 @@ describe('BaseObject', () => {
     it('should support instance destruction by purging properties', () => {
         const example = new ExampleObject({foo: 1});
         expect(example).to.have.property('foo', 1);
-        example.destroy();
+        const returnValue = example.destroy();
         expect(example).to.not.have.property('foo');
+        expect(returnValue).to.equal(example, 'should support method chaining');
     });
 });

@@ -64,6 +64,7 @@ export default class BaseObject {
     /**
      * Class destructor to purge references
      *
+     * @return {BaseObject}
      * @api public
      */
     destroy() {
@@ -74,6 +75,7 @@ export default class BaseObject {
         }
         // Ensure `destroy` can only be called once
         this.destroy = function destroy() {};
+        return this;
     }
 
     /**
