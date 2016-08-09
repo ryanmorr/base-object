@@ -187,7 +187,7 @@ export default class BaseObject {
         do {
             // eslint-disable-next-line no-loop-func
             Object.getOwnPropertyNames(obj).forEach((prop) => {
-                if (prop !== id) {
+                if (prop !== id && !(prop in map)) {
                     map[prop] = obj[prop];
                 }
             });
