@@ -129,7 +129,7 @@ export default class BaseObject {
      * @api public
      */
     hasProperty(name) {
-        return hasOwnProperty(this, name);
+        return name in this;
     }
 
     /**
@@ -140,7 +140,7 @@ export default class BaseObject {
      * @api public
      */
     getProperty(name) {
-        return this[name];
+        return this.hasProperty(name) ? this[name] : null;
     }
 
     /**

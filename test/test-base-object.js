@@ -90,6 +90,7 @@ describe('BaseObject', () => {
         const example = new ExampleObject();
         example.defineProperty('foo', 1);
         expect(example.getProperty('foo')).to.equal(1);
+        expect(example.getProperty('bar')).to.equal(null);
     });
 
     it('should support setting the value of an instance property', () => {
