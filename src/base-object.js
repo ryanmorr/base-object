@@ -35,20 +35,20 @@ export default class BaseObject {
 
     /**
      * Instaniate the object, optionally provided
-     * a key/value map of configuration options
+     * a key/value map of configuration properties
      *
      * @constructor
-     * @param {Object} options (optional)
+     * @param {Object} properties (optional)
      * @api public
      */
-    constructor(options) {
+    constructor(properties) {
         this.defineProperty(id, uid(), {
             enumerable: false,
             configurable: false,
             writable: false
         });
-        if (options) {
-            this.defineProperties(options);
+        if (properties) {
+            this.defineProperties(properties);
         }
         this.initialize();
     }
