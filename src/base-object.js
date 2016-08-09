@@ -274,4 +274,21 @@ export default class BaseObject {
             merge(this.prototype, obj);
         });
     }
+
+    /**
+     * Inherit from class
+     *
+     * @static
+     * @param {Function} subclass
+     * @return {Function}
+     * @api public
+     */
+    static extend(subclass) {
+        subclass.prototype = Object.create(this.prototype, {
+            constructor: {
+                value: subclass
+            }
+        });
+        return subclass;
+    }
 }

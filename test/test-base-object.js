@@ -203,4 +203,16 @@ describe('BaseObject', () => {
         expect(B.prototype).to.have.property('foo', foo);
         expect(b.foo()).to.equal('foo');
     });
+
+    it('should support subclassing via `extend` static method', () => {
+        class A extends BaseObject {}
+        const B = A.extend(function BConstructor(foo) {
+            this.foo = foo;
+        });
+        expect(B).to.be.a('function');
+        const b = new B(123);
+        expect(b).to.be.instanceof(B);
+        expect(b).to.be.instanceof(A);
+        expect(b).to.have.property('foo', 123);
+    });
 });
