@@ -24,7 +24,7 @@ export function hasOwnProperty(obj, name) {
  * @param {Object} obj
  * @param {...Object} properties
  * @return {Object}
- * @api private
+ * @api public
  */
 export function merge(obj, ...props) {
     if ('assign' in Object) {
