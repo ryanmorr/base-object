@@ -189,6 +189,14 @@ describe('BaseObject', () => {
         expect(example.toString()).to.equal('[object ExampleObject]');
     });
 
+    it('should support primitive coercion', () => {
+        const example = new ExampleObject({foo: 1});
+        const code = example.hashCode();
+        expect(example.valueOf()).to.equal(code);
+        expect(Number(example)).to.equal(code);
+        expect(example + 0).to.equal(code);
+    });
+
     it('should support adding properties/methods to the class prototype', () => {
         class A extends BaseObject {}
         function foo() {

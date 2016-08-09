@@ -263,6 +263,17 @@ export default class BaseObject {
     }
 
     /**
+     * Return an integer representation when the
+     * instance is converted to a primitive
+     *
+     * @return {Number}
+     * @api public
+     */
+    valueOf() {
+        return this.hashCode();
+    }
+
+    /**
      * Add properties to the class prototype
      *
      * @static
