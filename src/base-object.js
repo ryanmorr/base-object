@@ -1,7 +1,7 @@
 /**
  * Import dependencies
  */
-import { hasOwnProperty, merge, uid, print, formatMessage } from './util';
+import { hasOwnProperty, merge, uid, print, formatMessage, hashCode } from './util';
 
 /**
  * Define default property descriptors
@@ -172,6 +172,38 @@ export default class BaseObject {
             delete this[name];
         }
         return this;
+    }
+
+    /**
+     * Get the instance properties in a
+     * key/value hash map
+     *
+     * @return {Object}
+     * @api public
+     */
+    getProperties() {
+        const map = Object.create(null);
+        let obj = this;
+        do {
+            // eslint-disable-next-line no-loop-func
+            Object.getOwnPropertyNames(obj).forEach((prop) => {
+                if (prop !== id) {
+                    map[prop] = obj[prop];
+                }
+            });
+        } while ((obj = Object.getPrototypeOf(obj)));
+        return map;
+    }
+
+    /**
+     * Generate a hash code for an instance
+     * based on its properties
+     *
+     * @return {String}
+     * @api public
+     */
+    hashCode() {
+        return hashCode(this.getProperties());
     }
 
     /**

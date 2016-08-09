@@ -52,6 +52,18 @@ describe('BaseObject', () => {
         }
     });
 
+    it('should support instance destruction by purging properties', () => {
+        const example = new ExampleObject({foo: 1});
+        expect(example).to.have.property('foo', 1);
+        const returnValue = example.destroy();
+        expect(example).to.not.have.property('foo');
+        expect(returnValue).to.equal(example, 'should support method chaining');
+        const stub = sinon.stub(console, 'warn');
+        example.destroy();
+        expect(stub.calledOnce).to.equal(true, 'should allow destroy to be called only once');
+        stub.restore();
+    });
+
     it('should support assigning multiple properties', () => {
         const example = new ExampleObject();
         const returnValue = example.defineProperties({foo: 1, bar: 2});
@@ -113,26 +125,27 @@ describe('BaseObject', () => {
         stub.restore();
     });
 
-    it('should support getting the name of the class as a string', () => {
-        const example = new ExampleObject();
-        expect(example.getClassName()).to.equal('ExampleObject');
+    it('should support getting all properties (including the prototype chain) in a hash map', () => {
+        class A extends BaseObject {}
+        A.prototype.a = 1;
+        class B extends A {}
+        B.prototype.b = 2;
+        const b = new B();
+        const props = b.getProperties();
+        expect(props).to.be.a('object');
+        expect(props).to.have.property('a', 1);
+        expect(props).to.have.property('b', 2);
     });
 
-    it('should support getting the instance type via toString', () => {
-        const example = new ExampleObject();
-        expect(example.toString()).to.equal('[object ExampleObject]');
-    });
-
-    it('should support instance destruction by purging properties', () => {
-        const example = new ExampleObject({foo: 1});
-        expect(example).to.have.property('foo', 1);
-        const returnValue = example.destroy();
-        expect(example).to.not.have.property('foo');
-        expect(returnValue).to.equal(example, 'should support method chaining');
-        const stub = sinon.stub(console, 'warn');
-        example.destroy();
-        expect(stub.calledOnce).to.equal(true, 'should allow destroy to be called only once');
-        stub.restore();
+    it('should support encoding an instance into a hashcode (integer representation)', () => {
+        const example1 = new BaseObject({foo: 1, bar: 2});
+        const example2 = new BaseObject({foo: 1, bar: 2});
+        const example3 = new BaseObject({foo: 1, bar: 3});
+        const code = example2.hashCode();
+        expect(example1.hashCode()).to.be.a('number');
+        expect(isFinite(code) && code % 1).to.equal(0);
+        expect(example1.hashCode()).to.equal(example2.hashCode());
+        expect(example1.hashCode()).to.not.equal(example3.hashCode());
     });
 
     it('should support logging to the console', () => {
@@ -164,5 +177,15 @@ describe('BaseObject', () => {
             example.error(msg);
         };
         expect(error).to.throw(Error, formatMessage(example, msg));
+    });
+
+    it('should support getting the name of the class as a string', () => {
+        const example = new ExampleObject();
+        expect(example.getClassName()).to.equal('ExampleObject');
+    });
+
+    it('should support getting the instance type via toString', () => {
+        const example = new ExampleObject();
+        expect(example.toString()).to.equal('[object ExampleObject]');
     });
 });
