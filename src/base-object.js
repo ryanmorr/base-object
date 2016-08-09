@@ -261,4 +261,17 @@ export default class BaseObject {
     toString() {
         return `[object ${this.getClassName()}]`;
     }
+
+    /**
+     * Add properties to the class prototype
+     *
+     * @static
+     * @param {...Object} mixins
+     * @api public
+     */
+    static mixin(...mixins) {
+        mixins.forEach((obj) => {
+            merge(this.prototype, obj);
+        });
+    }
 }

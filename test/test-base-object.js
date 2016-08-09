@@ -188,4 +188,19 @@ describe('BaseObject', () => {
         const example = new ExampleObject();
         expect(example.toString()).to.equal('[object ExampleObject]');
     });
+
+    it('should support adding properties/methods to the class prototype', () => {
+        class A extends BaseObject {}
+        function foo() {
+            return 'foo';
+        }
+        A.mixin({foo});
+        class B extends A {}
+        const a = new A();
+        const b = new B();
+        expect(A.prototype).to.have.property('foo', foo);
+        expect(a.foo()).to.equal('foo');
+        expect(B.prototype).to.have.property('foo', foo);
+        expect(b.foo()).to.equal('foo');
+    });
 });
