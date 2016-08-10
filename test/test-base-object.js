@@ -6,12 +6,7 @@ import BaseObject from '../src/base-object';
 import { formatMessage } from '../src/util';
 
 // Decalre example class that inherits from `BaseObject`
-class ExampleObject extends BaseObject {
-
-    initialize() {
-
-    }
-}
+class ExampleObject extends BaseObject {}
 
 describe('BaseObject', () => {
     it('should have the characteristics of a class', () => {
