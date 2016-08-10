@@ -253,6 +253,25 @@ export default class BaseObject {
     }
 
     /**
+     * Convert a hash map of instance properties
+     * (not including functions) into a JSON
+     * string
+     *
+     * @return {String}
+     * @api public
+     */
+    toJSON() {
+        const props = this.getProperties();
+        return JSON.stringify(Object.keys(props).reduce((map, key) => {
+            if (typeof props[key] === 'function') {
+                return map;
+            }
+            map[key] = props[key];
+            return map;
+        }, {}));
+    }
+
+    /**
      * Get the instance type
      *
      * @return {String}

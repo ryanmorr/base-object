@@ -184,6 +184,14 @@ describe('BaseObject', () => {
         expect(example.getClassName()).to.equal('ExampleObject');
     });
 
+    it('should support converting the instance to JSON', () => {
+        const example = new ExampleObject({foo: 1, bar: 2});
+        const json = example.toJSON();
+        expect(json).to.equal('{"foo":1,"bar":2}');
+        expect(JSON.parse(json)).to.deep.equal({foo: 1, bar: 2});
+        expect(JSON.stringify(example)).to.equal(JSON.stringify(json), 'JSON.stringify should use toJSON method');
+    });
+
     it('should support getting the instance type via toString', () => {
         const example = new ExampleObject();
         expect(example.toString()).to.equal('[object ExampleObject]');
