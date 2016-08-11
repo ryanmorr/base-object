@@ -158,8 +158,8 @@ foo.shout('Attention!');
 Extend the class:
 
 ``` javascript
-const Bar = Foo.extend(function() {
-    
+const Bar = Foo.extend(function Bar() {
+    // `Bar` constructor
 });
 
 const bar = new Bar();
