@@ -178,7 +178,7 @@ bower install ryanmorr/base-object
 
 ## Tests
 
-Open `test/runner.html` in your browser or test with PhantomJS by issuing the following commands:
+Run unit tests by issuing the following commands:
 
 ``` sh
 npm install
