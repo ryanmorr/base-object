@@ -34,7 +34,7 @@ const id = (() => {
 export default class BaseObject {
 
     /**
-     * Instaniate the object, optionally provided
+     * Instantiate the object, optionally provided
      * a key/value map of configuration properties
      *
      * @constructor
