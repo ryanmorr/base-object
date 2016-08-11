@@ -68,11 +68,7 @@ export default class BaseObject {
      * @api public
      */
     destroy() {
-        for (const prop in this) {
-            if (hasOwnProperty(this, prop)) {
-                delete this[prop];
-            }
-        }
+        Object.getOwnPropertyNames(this).forEach(this.removeProperty, this);
         // Ensure `destroy` can only be called once
         this.destroy = () => this.warn('Instance already destroyed');
         return this;
