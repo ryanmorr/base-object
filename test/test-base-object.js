@@ -19,7 +19,7 @@ describe('BaseObject', () => {
     after(() => {
         Object.assign = assign;
     });
-    
+
     it('should have the characteristics of a class', () => {
         expect(BaseObject).to.be.a('function');
         expect(BaseObject).to.have.property('prototype');
