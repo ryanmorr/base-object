@@ -68,7 +68,11 @@ export default class BaseObject {
      * @api public
      */
     destroy() {
-        Object.getOwnPropertyNames(this).forEach(this.removeProperty, this);
+        Object.getOwnPropertyNames(this).forEach((prop) => {
+            if (prop !== id) {
+                this.removeProperty(prop);
+            }
+        });
         // Ensure `destroy` can only be called once
         this.destroy = () => this.warn('Instance already destroyed');
         return this;
@@ -296,9 +300,7 @@ export default class BaseObject {
      * @api public
      */
     static mixin(...mixins) {
-        mixins.forEach((obj) => {
-            merge(this.prototype, obj);
-        });
+        merge(this.prototype, ...mixins);
     }
 
     /**
