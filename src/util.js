@@ -28,9 +28,8 @@ export function hasOwnProperty(obj, name) {
  * @api public
  */
 export function merge(obj, ...props) {
-    if ('assign' in Object) {
-        Object.assign(obj, ...props);
-        return obj;
+    if (Object.assign) {
+        return Object.assign(obj, ...props);
     }
     for (let i = 0, len = props.length, item; i < len; i++) {
         item = props[i];

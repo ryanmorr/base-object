@@ -9,6 +9,17 @@ import { formatMessage } from '../src/util';
 class ExampleObject extends BaseObject {}
 
 describe('BaseObject', () => {
+    let assign, undef;
+
+    before(() => {
+        assign = Object.assign;
+        Object.assign = undef;
+    });
+
+    after(() => {
+        Object.assign = assign;
+    });
+    
     it('should have the characteristics of a class', () => {
         expect(BaseObject).to.be.a('function');
         expect(BaseObject).to.have.property('prototype');
