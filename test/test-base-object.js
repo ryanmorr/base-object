@@ -12,12 +12,16 @@ describe('BaseObject', () => {
     let assign, undef;
 
     before(() => {
-        assign = Object.assign;
-        Object.assign = undef;
+        if (Object.assign) {
+            assign = Object.assign;
+            Object.assign = undef;
+        }
     });
 
     after(() => {
-        Object.assign = assign;
+        if (assign) {
+            Object.assign = assign;
+        }
     });
 
     it('should have the characteristics of a class', () => {
