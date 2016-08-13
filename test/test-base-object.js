@@ -8,7 +8,7 @@ import { formatMessage } from '../src/util';
 // Decalre example class that inherits from `BaseObject`
 class ExampleObject extends BaseObject {}
 
-describe('BaseObject', () => {    
+describe('BaseObject', () => {
     it('should have the characteristics of a class', () => {
         expect(BaseObject).to.be.a('function');
         expect(BaseObject).to.have.property('prototype');
