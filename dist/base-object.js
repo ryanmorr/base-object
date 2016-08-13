@@ -1,4 +1,4 @@
-/*! base-object v0.1.0 | https://github.com/ryanmorr/base-object */
+/*! base-object v0.1.1 | https://github.com/ryanmorr/base-object */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.BaseObject = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
@@ -94,7 +94,11 @@ var BaseObject = function () {
         value: function destroy() {
             var _this = this;
 
-            Object.getOwnPropertyNames(this).forEach(this.removeProperty, this);
+            Object.getOwnPropertyNames(this).forEach(function (prop) {
+                if (prop !== _id) {
+                    _this.removeProperty(prop);
+                }
+            });
             // Ensure `destroy` can only be called once
             this.destroy = function () {
                 return _this.warn('Instance already destroyed');
@@ -377,15 +381,11 @@ var BaseObject = function () {
     }], [{
         key: 'mixin',
         value: function mixin() {
-            var _this2 = this;
-
             for (var _len = arguments.length, mixins = Array(_len), _key = 0; _key < _len; _key++) {
                 mixins[_key] = arguments[_key];
             }
 
-            mixins.forEach(function (obj) {
-                (0, _util.merge)(_this2.prototype, obj);
-            });
+            _util.merge.apply(undefined, [this.prototype].concat(mixins));
         }
 
         /**
@@ -461,9 +461,8 @@ function merge(obj) {
         props[_key - 1] = arguments[_key];
     }
 
-    if ('assign' in Object) {
-        Object.assign.apply(Object, [obj].concat(props));
-        return obj;
+    if (Object.assign) {
+        return Object.assign.apply(Object, [obj].concat(props));
     }
     for (var i = 0, len = props.length, item; i < len; i++) {
         item = props[i];
