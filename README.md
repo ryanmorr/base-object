@@ -47,7 +47,7 @@ foo.defineProperties({
 });
 ```
 
-Define a property with an optional descriptor:
+Define a property with an optional descriptor (enumerable, configurable, and writable by default):
 
 ``` javascript
 const foo = new Foo();
