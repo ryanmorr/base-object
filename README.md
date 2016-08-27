@@ -23,6 +23,8 @@ Instantiate the class providing an optional configuration object that will be us
 
 ``` javascript
 const foo = new Foo({a: 1, b: 2});
+foo.a; // 1
+foo.b; // 2
 ```
 
 ### Instance Methods
