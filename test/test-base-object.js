@@ -174,6 +174,11 @@ describe('BaseObject', () => {
         expect(error).to.throw(Error, formatMessage(example, msg));
     });
 
+    it('should support getting the the class of the instance', () => {
+        const example = new ExampleObject();
+        expect(example.getClass()).to.equal(ExampleObject);
+    });
+
     it('should support getting the name of the class as a string', () => {
         const example = new ExampleObject();
         expect(example.getClassName()).to.equal('ExampleObject');

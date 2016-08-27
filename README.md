@@ -25,6 +25,8 @@ Instantiate the class providing an optional configuration object that will be us
 const foo = new Foo({a: 1, b: 2});
 ```
 
+### Instance Methods
+
 Get the unique ID for the instance that is automatically generated:
 
 ``` javascript
@@ -88,19 +90,19 @@ const foo = new Foo({aaa: 123, bbb: 456});
 foo.hashCode(); // 186086595
 ```
 
-Log a message to the console:
+Log a message to the console unique to the instance:
 
 ``` javascript
 const foo = new Foo();
-foo.log('An important message');
-foo.warn('Method is deprecated');
+foo.log('Beacon!'); // "Foo(#irpmhhuk0): Beacon!"
+foo.warn('Method is deprecated'); // "Foo(#irpmhhuk0): Method is deprecated"
 ```
 
 Throw an error that is identifiable to the originating class and instance:
 
 ``` javascript
 const foo = new Foo();
-foo.error('Something went wrong!'); // Foo(#irpmhhuk0): Something went wrong!
+foo.error('Something went wrong!'); // "Foo(#irpmhhuk0): Something went wrong!"
 ```
 
 Convert an instance to JSON (serializes all properties of the prototype chain except functions):
@@ -111,18 +113,25 @@ foo.toJSON(); // '{"aaa":123,"bbb":456}'
 JSON.stringify(foo); // "{\"aaa\":123,\"bbb\":456}"
 ```
 
+Get the class of an instance:
+
+``` javascript
+const foo = new Foo();
+foo.getClass(); // Foo
+```
+
 Get the class name:
 
 ``` javascript
 const foo = new Foo();
-foo.getClassName(); // Foo
+foo.getClassName(); // "Foo"
 ```
 
 Get a string representation:
 
 ``` javascript
 const foo = new Foo();
-foo.toString(); // [object Foo]
+foo.toString(); // "[object Foo]""
 ```
 
 Coerce the instance into a primitive value (returns same as `hashCode`):
@@ -141,6 +150,8 @@ foo.hasProperty('aaa'); // true
 foo.destroy();
 foo.hasProperty('aaa'); // false
 ```
+
+### Static Methods
 
 Add properties/methods to the class prototype:
 

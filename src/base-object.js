@@ -34,7 +34,7 @@ const id = (() => {
 export default class BaseObject {
 
     /**
-     * Instantiate the object, optionally provided
+     * Instantiate the class, optionally provided
      * a key/value map of configuration properties
      *
      * @constructor
@@ -242,6 +242,16 @@ export default class BaseObject {
     }
 
     /**
+     * Get the class object
+     *
+     * @return {String}
+     * @api public
+     */
+    getClass() {
+        return this.constructor;
+    }
+
+    /**
      * Get the name of the class as a
      * string
      *
@@ -249,7 +259,7 @@ export default class BaseObject {
      * @api public
      */
     getClassName() {
-        return this.constructor.name;
+        return this.getClass().name;
     }
 
     /**
