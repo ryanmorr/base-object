@@ -220,6 +220,14 @@ describe('BaseObject', () => {
         expect(b.foo()).to.equal('foo');
     });
 
+    it('should support for creating instances via the factory pattern', () => {
+        class A extends BaseObject {}
+        const a = A.factory({foo: 1, bar: 2});
+        expect(a).to.be.instanceof(A);
+        expect(a).to.have.property('foo', 1);
+        expect(a).to.have.property('bar', 2);
+    });
+
     it('should support subclassing via `extend` static method', () => {
         class A extends BaseObject {}
         const B = A.extend(function BConstructor(foo) {

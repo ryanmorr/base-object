@@ -314,6 +314,18 @@ export default class BaseObject {
     }
 
     /**
+     * Instaniate the class
+     *
+     * @static
+     * @param {...*} args
+     * @return {Object}
+     * @api public
+     */
+    static factory(...args) {
+        return new this(...args);
+    }
+
+    /**
      * Inherit from class
      *
      * @static

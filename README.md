@@ -166,6 +166,13 @@ const foo = new Foo();
 foo.shout('Attention!');
 ```
 
+Use the factory pattern to create a new instance:
+
+``` javascript
+const foo = Foo.factory();
+foo instanceof Foo; // true
+```
+
 Extend the class:
 
 ``` javascript
